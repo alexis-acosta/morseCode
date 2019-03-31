@@ -1,0 +1,81 @@
+#include <iostream>
+#include <cctype>
+using namespace std;
+
+ostream& operator<<(ostream& os, const string& phrase) {
+    
+    string morseAlpha[26] {".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", 
+	                       ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", 
+	                       "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."};
+	                       
+	char alphabet[26] {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+	                   'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+
+    char numbers[10] {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    
+    string morseNum[10] {"-----", ".----", "..---", "...--", "....-", ".....", "--...", 
+                         "---..", "----." };
+    
+    string *morsePhrase = new string [phrase.length()];
+	//string morsePhrase;
+	
+	for(int j{0}; j < phrase.length(); j++) {
+	    for(int k{0}; k < 26; k++) {
+	        if(phrase[j] == alphabet[k]) {
+	            morsePhrase[j] = morseAlpha[k];
+	            //cout << morsePhrase[j] << " ";
+	        }
+	    }
+	    
+	    for(int i{0}; i < 10; i++) {
+	        if(phrase[j] == numbers[i]) {
+	            morsePhrase[j] = morseNum[i];
+	            //cout << morsePhrase[j] << " ";
+	        }
+	    }
+	}
+    
+    for(int j{0}; j < phrase.length(); j++)
+        cout << phrase[j];
+    
+    for(int j{0}; j < phrase.length(); j++) {
+        
+        os << morsePhrase[j] << " ";
+    }    
+    
+    return os;
+
+}
+
+int main() {
+	
+	cout << "Enter a phrase to translate into Morse Code: \n";
+
+	string phrase;
+	cin >> phrase;
+	
+	
+	for(size_t i{0}; i < phrase.length(); i++) {
+	    if(!isalnum(phrase[i])) {
+	        cout << "Invalid: only use alphanumeric characters \n";
+	        cout << "Enter a phrase to translate into Morse Code: \n";
+	        cin >> phrase;
+	        i = 0;
+	    }
+	    
+	    if(islower(phrase[i]))
+	        phrase[i] = (toupper(phrase[i]));
+    }
+    
+    cout << phrase;
+
+}
+
+
+
+
+
+
+
+
+
